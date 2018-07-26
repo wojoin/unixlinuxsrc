@@ -1,0 +1,17 @@
+http://www.cnblogs.com/dpf-learn/p/6202432.html
+
+1. 生成目标文件
+gcc -c -fPIC -o mystack.o mystack.c
+2. 生成共享库
+gcc -shared -o libmystack.so mystack.o
+3. 生成test程序
+gcc -o test test.c -lmystack -L.
+
+报错(权限问题,操作系统无法找到库)
+./test: error while loading shared libraries: libmystack.so: cannot open shared object file: No such file or directory
+
+可以用ldd test查看libmystack.so找不到
+
+解决方法:
+gcc -g -o test test.c -lmystack -L. -Wl,-rpath=.
+-rpath选项是传递给连接器(linker)
