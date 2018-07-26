@@ -14,5 +14,13 @@ int main(int argc, char const *argv[])
 	else if(childpid == 0)
 		printf("child, my pid is %d\n",getpid());
 
+	// Synchronous execution after fork()
+	int pid = getpid();
+	if(mypid == pid)
+		printf("parent process\n");
+	else
+		printf("child process\n");
+	
+	printf("After: my pid is %d\n",getpid());
 	return 0;
 }
